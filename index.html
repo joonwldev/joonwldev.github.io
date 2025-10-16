@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Junwon Lee · Software Engineer</title>
+  <meta name="description" content="Portfolio of Junwon Lee — Frontend-focused Full-Stack Engineer (TypeScript, Ionic/Angular, Offline-first, Microservices).">
+  <meta property="og:title" content="Junwon Lee · Software Engineer" />
+  <meta property="og:description" content="Frontend-focused Full-Stack Engineer (TypeScript, Ionic/Angular, Offline-first, Microservices)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{ --bg:#0b0c0e; --panel:#121419; --text:#e6e7ea; --muted:#a7adbb; --accent:#7dd3fc; --accent-2:#a78bfa; --chip:#1f2430; --border:#222735; --ok:#22c55e; }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7f8fb; --panel:#fff; --text:#12141a; --muted:#4b5563; --chip:#eef2ff; --border:#e5e7eb; }
+    }
+    *{ box-sizing:border-box }
+    html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Noto Sans,Helvetica,Arial,"Apple SD Gothic Neo","Noto Sans KR"; }
+    a{ color:var(--accent); text-decoration:none } a:hover{ text-decoration:underline }
+    .wrap{ max-width:980px; margin:0 auto; padding:24px; }
+    /* Header: 3-step layout = profile / nav / actions */
+    header.header{
+      position:relative;
+      display:flex; flex-direction:column; align-items:center;
+      gap:10px; padding:28px 20px; background:var(--panel);
+      border:1px solid var(--border); border-radius:16px;
+      max-width:980px; margin:0 auto;
+    }
+    .profile{ display:flex; align-items:center; gap:12px; }
+    .avatar{ width:64px; height:64px; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:grid; place-items:center; color:#0b0c0e; font-weight:800 }
+    .title h1{ margin:0; font-size:24px } .title p{ margin:6px 0 0; color:var(--muted) }
+    nav{ margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; align-items:center }
+    nav a, .btn, .lang{ padding:8px 12px; border:1px solid var(--border); background:var(--chip); border-radius:999px; font-size:14px }
+    .lang{ cursor:pointer; user-select:none }
+    .lang.active{ outline:2px solid var(--accent) }
+    .lang-toggle{border-left:2px solid darkgrey; padding-left: 8px;}
+    .title h1{ margin:0; font-size:24px } 
+    .title p{ margin:6px 0 0; color:var(--muted) }
+    /* top nav */
+    nav.nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+    nav.nav a{ padding:8px 12px; border:1px solid var(--border); background:var(--chip); border-radius:999px; font-size:14px }
+    /* action area */
+    .actions{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .contact-links, .resume-links{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+    .btn, .lang{ padding:8px 12px; border:1px solid var(--border); background:var(--chip); border-radius:999px; font-size:14px }
+    .title h1{ margin:0; font-size:32px; text-align:center }
+    .title p{ margin:6px 0 0; color:var(--muted); font-size:18px; text-align:center }
+    /* nav: 바로 타이틀 아래 한 줄 */
+    nav.nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:4px }
+    nav.nav a{ padding:7px 12px; border:1px solid var(--border); background:var(--chip); border-radius:999px; font-size:14px }
+    /* actions: 연락/이력서 한 줄(좁으면 wrap) */
+    .actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:6px }
+    .contact-links{ display:flex; flex-wrap:wrap; gap:8px }
+    .resume-links{ display:flex; gap:8px }
+    .btn, .lang{ padding:7px 12px; border:1px solid var(--border); background:var(--chip); border-radius:999px; font-size:14px }
+    .lang{ cursor:pointer; user-select:none }
+    .lang.active{ outline:2px solid var(--accent) }
+    section{ margin-top:22px; padding:20px; background:var(--panel); border:1px solid var(--border); border-radius:16px; }
+    h2{ margin:0 0 14px; font-size:18px; letter-spacing:.2px }
+    .grid{ display:grid; gap:14px } @media(min-width:800px){ .grid-2{ grid-template-columns:1fr 1fr } }
+    .chip{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:var(--chip); font-size:13px; margin:4px 6px 0 0 }
+    .item{ padding:14px; border:1px solid var(--border); border-radius:12px }
+    .sub{ color:var(--muted); font-size:14px }
+    .badges{ margin-top:8px; display:flex; flex-wrap:wrap; gap:8px }
+    .kpi{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px }
+    .kpi span{ font-size:12px; padding:6px 8px; background:var(--chip); border:1px solid var(--border); border-radius:8px }
+    .ok{ color:var(--ok); font-weight:600 }
+    footer{ margin:28px 0 12px; text-align:center; color:var(--muted); font-size:13px }
+    .stack{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
+    .stack .chip{ margin:0 } .muted{ color:var(--muted) }
+    .list{ padding-left:18px; margin:10px 0 0 } .list li{ margin:6px 0; line-height:1.35 }
+    .qr{ width:140px; border:1px solid var(--border); border-radius:8px; margin-top:8px }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Junwon Lee",
+    "jobTitle":"Software Engineer",
+    "address":{"@type":"PostalAddress","addressLocality":"Toronto","addressRegion":"ON","addressCountry":"CA"},
+    "email":"mailto:junwon.lee0701@gmail.com",
+    "url":"https://joonwldev.github.io",
+    "sameAs":["https://github.com/joonwldev","https://www.linkedin.com/in/your-linkedin"],
+    "knowsAbout":["TypeScript","Angular","Ionic","Offline-first","WebSocket","Spring Boot","MS Dynamics","Node.js","Docker","Odoo","Oracle Cloud"]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <!-- 1) Profile -->
+      <div class="profile">
+        <div class="avatar">JL</div>
+        <div class="title">
+          <h1>Junwon Lee</h1>
+          <p data-i18n="tagline">Frontend-focused Full-Stack Engineer · Toronto, ON · Open to Remote</p>
+        </div>
+      </div>
+      <!-- 2) Top Navigation -->
+      <nav class="nav">
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#skills" data-i18n="nav_skills">Skills</a>
+        <a href="#experience" data-i18n="nav_experience">Experience</a>
+        <a href="#projects" data-i18n="nav_projects">Projects</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+
+        <div class="lang-toggle"><span class="lang" data-lang="en">EN</span><span class="lang" data-lang="kr">KR</span></div>
+      </nav>
+      <!-- 3) Actions -->
+      <div class="actions">
+        <div class="contact-links">
+            <a class="btn" href="mailto:junwon.lee0701@gmail.com" data-i18n="btn_email">Email</a>
+            <a class="btn" href="https://github.com/joonwldev" target="_blank" rel="noreferrer">GitHub</a>
+            <!-- <a class="btn" href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noreferrer">LinkedIn</a> -->
+            <div class="resume-links">
+                <a class="btn resume-en" href="downloads/Junwon_Lee_Resume_EN.pdf" target="_blank" rel="noreferrer" data-i18n="btn_resume_en">Download Resume (EN)</a>
+                <a class="btn resume-kr" href="downloads/Junwon_Lee_Resume_KR.pdf" target="_blank" rel="noreferrer" data-i18n="btn_resume_kr">Download Resume (KR)</a>
+            </div>
+        </div>
+        <!-- <div class="resume-links">
+          <a class="btn" href="downloads/Junwon_Lee_Resume_EN.pdf" target="_blank" rel="noreferrer" data-i18n="btn_resume_en">Download Resume (EN)</a>
+          <a class="btn" href="downloads/Junwon_Lee_Resume_KR.pdf" target="_blank" rel="noreferrer" data-i18n="btn_resume_kr">Download Resume (KR)</a>
+        </div>
+        <div class="lang-toggle">
+          <span class="lang" data-lang="en">EN</span>
+          <span class="lang" data-lang="kr">KR</span>
+        </div> -->
+
+      </div>
+    </header>
+
+    <section id="about">
+      <h2 data-i18n="about_title">About</h2>
+      <p data-i18n="about_body">
+        Full-stack engineer (Ionic + Angular) exploring AI-assisted development. Actively using ChatGPT, Claude, Deepseek, and Gemini with VS Code (Roo Code, Codex). Experienced in hybrid mobile CRM apps, offline sync optimization, and cross-timezone Agile collaboration.
+      </p>
+      <div class="kpi">
+        <span data-i18n="kpi_sync">Offline sync: 5k avg / 10k+ max</span>
+        <span data-i18n="kpi_time" data-i18n-html>Initial sync: <b>5 → 2 min</b></span>
+        <span data-i18n="kpi_calendar" data-i18n-html>Calendar render/tab: <b>~50% faster</b></span>
+        <span data-i18n="kpi_hotfix">Hotfix TTR: ~1 day</span>
+      </div>
+      <!-- <p class="muted" data-i18n="about_portfolio" data-i18n-html>Full list & live demos → joonwldev.github.io</p> -->
+    </section>
+
+    <section id="skills">
+      <h2 data-i18n="skills_title">Skills</h2>
+      <div class="stack">
+        <span class="chip">TypeScript</span><span class="chip">Angular</span><span class="chip">Ionic</span>
+        <span class="chip">RxJS</span><span class="chip">NgRx</span><span class="chip">React</span><span class="chip">React Native (Expo)</span>
+        <span class="chip">Spring Boot</span><span class="chip">Node.js</span><span class="chip">.NET</span><span class="chip">MS Dynamics</span>
+        <span class="chip">Python (Odoo)</span><span class="chip">Docker · Compose</span><span class="chip">Nginx</span>
+        <span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Oracle Cloud (OCI)</span>
+        <span class="chip">Azure DevOps · Bitbucket</span>
+        <span class="chip">Jira</span><span class="chip">Confluence</span>
+        <span class="chip" data-i18n="chip_ai">AI-Assisted (ChatGPT, Claude, Deepseek, Gemini, Roo Code, Codex)</span>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 data-i18n="exp_title">Experience</h2>
+      <div class="grid grid-2">
+        <div class="item">
+          <b>Exeevo (formerly Indegene)</b> · <span data-i18n="exp_role">Lead/Senior Full-Stack Engineer</span>
+          <div class="sub">Jul 2018 – Jan 2025 · Toronto, ON</div>
+          <ul class="list">
+            <li data-i18n="exp1" data-i18n-html>Optimized <b>offline sync</b> (avg 5k, 10k+ max): initial sync <b>5→2 min</b> via indexing, query tuning, worker parallelism.</li>
+            <li data-i18n="exp2" data-i18n-html>Rebuilt <b>calendar</b> to halve render & tab-switch time; rolled out to <b>2k+ users</b> with 0 critical bugs.</li>
+            <li data-i18n="exp3" data-i18n-html>Added mobile <b>zoom</b> to WebSocket-based presentation sharing (legacy iframe constraints).</li>
+            <li data-i18n="exp4" data-i18n-html><b>Spring Boot</b> microservices for app↔Dynamics entity aggregation & offline sync.</li>
+            <li data-i18n="exp5" data-i18n-html><b>Node.js</b> content service: multi-upload support.</li>
+            <li data-i18n="exp6" data-i18n-html><b>.NET</b> conversion service: logging/handling improved & engine upgrade for PDF fixes.</li>
+            <li data-i18n="exp7" data-i18n-html>Global hotfixes (APAC/EU/LATAM), typically within a day incl. QA regression.</li>
+            <li data-i18n="exp8" data-i18n-html>Wrote <b>Angular/Ionic guidelines</b> and mentored a junior dev (~1.5 years).</li>
+            <li data-i18n="exp9" data-i18n-html>Modernized <b>Cordova plugins</b> for latest OS/Ionic; <b>basic Electron packaging</b> for desktop support.</li>
+            <li data-i18n="exp10" data-i18n-html>Worked fully remote since 2020; daily collaboration with India team under Agile Scrum (standups, sprints, retros).</li>
+            <li data-i18n="exp11" data-i18n-html>Used <b>Jira</b> for sprint planning and <b>Confluence</b> for technical documentation and knowledge sharing.</li>
+          </ul>
+        </div>
+        <div class="item">
+          <b>Pack Tonight</b> · <span data-i18n="pt_role">Web Developer / Co-founder</span>
+          <div class="sub">Feb 2015 – Jun 2018 · Toronto, ON</div>
+          <ul class="list">
+            <li data-i18n="pt1">LoopBack + Angular + MariaDB booking platform on AWS; frontend architecture & REST integration.</li>
+          </ul>
+          <b>Cell8 Games</b> · iOS Developer
+          <div class="sub">Sep 2012 – Jan 2015 · Toronto, ON</div>
+          <ul class="list">
+            <li data-i18n="cell1">In-game store & currency systems (Objective-C, IAP).</li>
+          </ul>
+          <b>AMD</b> · <span data-i18n="amd_role">Software QA Engineer</span>
+          <div class="sub">Sep 2010 – Aug 2012 · Markham, ON</div>
+          <ul class="list">
+            <li data-i18n="amd1">Functional test design and automation to improve QA efficiency.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 data-i18n="proj_title">Projects</h2>
+      <div class="grid grid-2">
+        <!-- RN Trade Tracker -->
+        <div class="item">
+          <b>RN Trade Tracker — <span data-i18n="rn_sub">AI Collaboration Demo</span></b>
+          <div class="sub" data-i18n="rn_meta">Oct 15, 2025 · Expo SDK 53 · React Native 0.79 · TypeScript</div>
+          <p data-i18n="rn_body" data-i18n-html>
+            Built in one day using ChatGPT and Codex plugin (AI pair programming). Streams Finnhub WebSocket data, caches per-symbol history in SQLite, renders analytics with SVG sparkline, and fires local price alerts. Published via EAS Update for recruiters to try in Expo Go.
+          </p>
+          <div class="stack">
+            <span class="chip">Expo</span><span class="chip">React Native</span><span class="chip">TypeScript</span>
+            <span class="chip">SQLite</span><span class="chip">WebSocket</span><span class="chip" data-i18n="chip_ai_short">AI-assisted</span>
+          </div>
+          <p>
+            <a href="https://github.com/joonwldev/rn-demo-app" target="_blank" data-i18n="btn_repo">View Repo</a> ·
+            <a href="YOUR_EXPO_GO_LINK_HERE" target="_blank" data-i18n="btn_expo">Try in Expo Go</a>
+          </p>
+          <img class="qr" src="assets/qr_rn_demo.svg" alt="Expo Go QR">
+        </div>
+
+        <!-- Odoo POS & eCommerce -->
+        <div class="item">
+          <b>Odoo POS & eCommerce — <span data-i18n="odoo_sub">Freelance</span></b>
+          <div class="sub" data-i18n="odoo_meta">Jun 2025 – Present · Oracle Cloud (OCI)</div>
+          <p data-i18n="odoo_body">
+            Restaurant POS & online ordering on Odoo (Python). Dockerized stack (Nginx, PostgreSQL, Redis, Odoo) via Docker Compose; HTTPS terminated at OCI LB → VM (HTTP). Custom add-ons: receipt printing, Stripe refunds, city-based delivery fees, pickup/delivery flows. Preview available upon request (staging).
+          </p>
+          <div class="stack">
+            <span class="chip">Odoo</span><span class="chip">Python</span><span class="chip">Docker</span>
+            <span class="chip">Nginx</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">OCI</span>
+          </div>
+          <p>
+            <a href="https://github.com/joonwldev/choondak-stack" target="_blank" data-i18n="btn_stack_repo">Stack Repo</a> ·
+            <a href="https://github.com/joonwldev/choondak-addons" target="_blank" data-i18n="btn_addons_repo">Add-ons Repo</a>
+          </p>
+        </div>
+
+      </div>
+      <!-- <p class="muted" data-i18n="proj_note" data-i18n-html>Full list & live demos → <a href="https://joonwldev.github.io">joonwldev.github.io</a></p> -->
+    </section>
+
+    <section id="contact">
+      <h2 data-i18n="contact_title">Contact</h2>
+      <p data-i18n="contact_body" data-i18n-html>Open to Frontend / Full-Stack roles. Best way to reach me: <a href="mailto:junwon.lee0701@gmail.com">junwon.lee0701@gmail.com</a></p>
+    </section>
+
+    <footer>© <span id="y"></span> Junwon Lee · <span data-i18n="footer_note">Built with semantic HTML + a pinch of CSS</span></footer>
+  </div>
+
+  <script>
+    const i18n = {
+      en: {
+        tagline: "Frontend-focused Full-Stack Engineer · Toronto, ON · Open to Remote",
+        btn_email: "Email",
+        btn_resume_en: "Download Resume (EN)",
+        btn_resume_kr: "Download Resume (KR)",
+        nav_about: "About", nav_skills: "Skills", nav_experience:"Experience", nav_projects:"Projects", nav_contact:"Contact",
+        about_title: "About",
+        about_body: "Full-stack engineer (Ionic + Angular) exploring AI-assisted development. Actively using ChatGPT, Claude, Deepseek, and Gemini with VS Code (Roo Code, Codex). Experienced in hybrid mobile CRM apps, offline sync optimization, and cross-timezone Agile collaboration.",
+        about_portfolio: "Full list & live demos → <a href='https://joonwldev.github.io'>joonwldev.github.io</a>",
+        kpi_sync: "Offline sync: 5k avg / 10k+ max",
+        kpi_time: "Initial sync: <b>5 → 2 min</b>",
+        kpi_calendar: "Calendar render/tab: <b>~50% faster</b>",
+        kpi_hotfix: "Hotfix TTR: ~1 day",
+        skills_title: "Skills",
+        chip_ai: "AI-Assisted (ChatGPT, Claude, Deepseek, Gemini, Roo Code, Codex)",
+        exp_title: "Experience",
+        exp_role: "Lead/Senior Full-Stack Engineer",
+        exp1: "Optimized <b>offline sync</b> (avg 5k, 10k+ max): initial sync <b>5→2 min</b> via indexing, query tuning, worker parallelism.",
+        exp2: "Rebuilt <b>calendar</b> to halve render & tab-switch time; rolled out to <b>2k+ users</b> with 0 critical bugs.",
+        exp3: "Added mobile <b>zoom</b> to WebSocket-based presentation sharing (legacy iframe constraints).",
+        exp4: "<b>Spring Boot</b> microservices for app↔Dynamics entity aggregation & offline sync.",
+        exp5: "<b>Node.js</b> content service: multi-upload support.",
+        exp6: "<b>.NET</b> conversion service: logging/handling improved & engine upgrade for PDF fixes.",
+        exp7: "Global hotfixes (APAC/EU/LATAM), typically within a day incl. QA regression.",
+        exp8: "Wrote <b>Angular/Ionic guidelines</b> and mentored a junior dev (~1.5 years).",
+        exp9: "Modernized <b>Cordova plugins</b> for latest OS/Ionic; <b>basic Electron packaging</b> for desktop support.",
+        exp10:"Worked fully remote since 2020; daily collaboration with India team under Agile Scrum (standups, sprints, retros).",
+        exp11:"Used <b>Jira</b> for sprint planning and <b>Confluence</b> for technical documentation and knowledge sharing.",
+        pt_role:"Web Developer / Co-founder",
+        pt1:"LoopBack + Angular + MariaDB booking platform on AWS; frontend architecture & REST integration.",
+        cell1:"In-game store & currency systems (Objective-C, IAP).",
+        amd_role:"Software QA Engineer",
+        amd1:"Functional test design and automation to improve QA efficiency.",
+        proj_title:"Projects",
+        rn_sub:"AI Collaboration Demo",
+        rn_meta:"Oct 15, 2025 · Expo SDK 53 · React Native 0.79 · TypeScript",
+        rn_body:"Built in one day using ChatGPT and Codex plugin (AI pair programming). Streams Finnhub WebSocket data, caches per-symbol history in SQLite, renders analytics with SVG sparkline, and fires local price alerts. Published via EAS Update for recruiters to try in Expo Go.",
+        chip_ai_short:"AI-assisted",
+        btn_repo:"View Repo",
+        btn_expo:"Try in Expo Go",
+        odoo_sub:"Freelance",
+        odoo_meta:"Jun 2025 – Present · Oracle Cloud (OCI)",
+        odoo_body:"Restaurant POS & online ordering on Odoo (Python). Dockerized stack (Nginx, PostgreSQL, Redis, Odoo) via Docker Compose; HTTPS terminated at OCI LB → VM (HTTP). Custom add-ons: receipt printing, Stripe refunds, city-based delivery fees, pickup/delivery flows. Preview available upon request (staging).",
+        btn_stack_repo:"Stack Repo",
+        btn_addons_repo:"Add-ons Repo",
+        ex_meta:"2018 – 2025 · Ionic + Angular + Spring Boot + MS Dynamics",
+        ex_body:"Hybrid CRM for pharma sales. Offline-first architecture supporting 10k+ records. Cut initial sync 5 → 2 min. Rebuilt calendar for ~50% faster render/tab switch. Updated Cordova plugins for latest OS/Ionic and added basic Electron packaging for desktop support.",
+        proj_note:"Full list & live demos → <a href='https://joonwldev.github.io'>joonwldev.github.io</a>",
+        contact_title:"Contact",
+        contact_body:'Open to Frontend / Full-Stack roles. Best way to reach me: <a href="mailto:junwon.lee0701@gmail.com">junwon.lee0701@gmail.com</a>',
+        footer_note:"Built with semantic HTML + a pinch of CSS"
+      },
+      kr: {
+        tagline:"프론트엔드 중심 풀스택 엔지니어 · 토론토, ON · 원격 가능",
+        btn_email:"이메일",
+        btn_resume_en:"이력서 다운로드 (EN)",
+        btn_resume_kr:"이력서 다운로드 (KR)",
+        nav_about:"소개", nav_skills:"기술", nav_experience:"경력", nav_projects:"프로젝트", nav_contact:"연락처",
+        about_title:"소개",
+        about_body:"AI 코딩 워크플로우를 적극 실험하는 풀스택 엔지니어(Ionic + Angular)입니다. VS Code에서 Roo Code, Codex와 함께 ChatGPT, Claude, Deepseek, Gemini를 활용합니다. 하이브리드 모바일 CRM, 오프라인 동기화 최적화, 타임존을 넘는 Agile 협업 경험을 보유하고 있습니다.",
+        about_portfolio:"전체 목록 & 라이브 데모 → <a href='https://joonwldev.github.io'>joonwldev.github.io</a>",
+        kpi_sync:"오프라인 동기화: 평균 5천 / 최대 1만+",
+        kpi_time:"초기 동기화: <b>5 → 2분</b>",
+        kpi_calendar:"캘린더 렌더/탭 전환: <b>약 50% 향상</b>",
+        kpi_hotfix:"핫픽스 TTR: 약 1일",
+        skills_title:"기술",
+        chip_ai:"AI 워크플로우 (ChatGPT, Claude, Deepseek, Gemini, Roo Code, Codex)",
+        exp_title:"경력",
+        exp_role:"리드/시니어 풀스택 엔지니어",
+        exp1:"<b>오프라인 동기화</b> 최적화(평균 5천, 최대 1만+): 인덱스/쿼리 튜닝, 워커 병렬화로 초기 <b>5→2분</b> 단축.",
+        exp2:"<b>캘린더</b> 모듈 재구성으로 렌더·탭 전환 속도 절반으로 단축; <b>2천+ 사용자</b> 무결함 배포.",
+        exp3:"레거시 iframe 제약을 해결하며 WebSocket 발표 공유에 <b>모바일 줌</b> 기능 추가.",
+        exp4:"앱↔Dynamics 간 엔터티 집계 및 오프라인 싱크를 위한 <b>Spring Boot</b> 마이크로서비스 유지·개선.",
+        exp5:"<b>Node.js</b> 콘텐츠 서비스 멀티 업로드 지원.",
+        exp6:"<b>.NET</b> 변환 서비스 로깅/에러 처리 개선 및 PDF 엔진 업그레이드.",
+        exp7:"글로벌(APAC/EU/LATAM) 핫픽스를 QA regression 포함 평균 1일 내 처리.",
+        exp8:"<b>Angular/Ionic 가이드</b> 문서 작성 및 주니어 멘토링(약 1.5년).",
+        exp9:"최신 OS/Ionic 대응을 위한 <b>Cordova 플러그인</b> 현대화; <b>Electron</b> 기본 패키징으로 데스크톱 지원.",
+        exp10:"2020년 이후 완전 재택, 인도 팀과 매일 스크럼·스프린트·레트로 진행(Agile Scrum).",
+        exp11:"스프린트 관리를 위해 <b>Jira</b>, 기술 문서화와 지식 공유를 위해 <b>Confluence</b> 사용.",
+        pt_role:"웹 개발자 / 공동 창업자",
+        pt1:"AWS 상 LoopBack + Angular + MariaDB 기반 예약 플랫폼; 프론트엔드 아키텍처 및 REST 연동.",
+        cell1:"인앱 상점·화폐 시스템(Objective-C, IAP).",
+        amd_role:"소프트웨어 QA 엔지니어",
+        amd1:"기능 테스트 설계 및 자동화로 QA 효율 향상.",
+        proj_title:"프로젝트",
+        rn_sub:"AI 협업 데모",
+        rn_meta:"2025.10.15 · Expo SDK 53 · React Native 0.79 · TypeScript",
+        rn_body:"ChatGPT + Codex 플러그인(AI 페어 프로그래밍)으로 하루 만에 제작. Finnhub WebSocket 데이터 스트리밍, SQLite 심볼별 히스토리 저장, SVG 스파크라인과 로컬 가격 알림. EAS Update로 배포되어 Expo Go에서 바로 체험 가능.",
+        chip_ai_short:"AI-assisted",
+        btn_repo:"레포 보기",
+        btn_expo:"Expo Go로 열기",
+        odoo_sub:"프리랜스",
+        odoo_meta:"2025.06 – 현재 · Oracle Cloud (OCI)",
+        odoo_body:"레스토랑용 Odoo(Python) POS & 온라인 주문. Docker Compose 기반(Nginx, PostgreSQL, Redis, Odoo); OCI LB에서 HTTPS 종료 후 VM(HTTP) 연결. 영수증 프린트, Stripe 환불, 도시별 배송비, 픽업/배달 플로우 등 커스텀 애드온. 스테이징 프리뷰 요청 시 제공.",
+        btn_stack_repo:"스택 레포",
+        btn_addons_repo:"애드온 레포",
+        ex_meta:"2018 – 2025 · Ionic + Angular + Spring Boot + MS Dynamics",
+        ex_body:"제약 CRM 하이브리드 앱. 1만+ 레코드 오프라인 아키텍처. 초기 싱크 5→2분, 캘린더 렌더/탭 전환 약 50% 개선. 최신 OS/Ionic 대응을 위한 Cordova 플러그인 현대화와 Electron 기본 패키징 지원.",
+        proj_note:"전체 목록 & 라이브 데모 → <a href='https://joonwldev.github.io'>joonwldev.github.io</a>",
+        contact_title:"연락처",
+        contact_body:'프론트엔드/풀스택 포지션에 관심 있습니다. 이메일: <a href="mailto:junwon.lee0701@gmail.com">junwon.lee0701@gmail.com</a>',
+        footer_note:"Semantic HTML과 약간의 CSS로 제작"
+      }
+    };
+
+    function toggleResumeButtons(lang){
+        const enBtn = document.querySelector('.resume-en');
+        const krBtn = document.querySelector('.resume-kr');
+        if(!enBtn || !krBtn) return;
+        if(lang === 'kr'){
+        enBtn.style.display = 'none';
+        krBtn.style.display = 'inline-flex';
+        }else{
+        enBtn.style.display = 'inline-flex';
+        krBtn.style.display = 'none';
+        }
+    }
+
+    function getQueryParam(name){
+        const params = new URLSearchParams(window.location.search);
+        const v = params.get(name);
+        return v && v.toLowerCase();
+    }
+
+    function applyLang(lang){
+        const dict = i18n[lang] || i18n.en;
+        document.documentElement.setAttribute('lang', lang === 'kr' ? 'ko' : 'en');
+        document.documentElement.dataset.lang = lang;
+
+        for (const el of document.querySelectorAll('[data-i18n]')){
+        const key = el.getAttribute('data-i18n');
+        const val = dict[key];
+        if (val === undefined) continue;
+
+        // ★ HTML 허용 요소(data-i18n-html)가 있으면 innerHTML로 주입
+        if (el.hasAttribute('data-i18n-html')) {
+            el.innerHTML = val;
+        } else {
+            el.textContent = val;
+        }
+        }
+
+        for (const b of document.querySelectorAll('.lang')){
+        b.classList.toggle('active', b.dataset.lang === lang);
+        }
+        localStorage.setItem('lang', lang);
+        toggleResumeButtons(lang);
+    }
+
+    (function(){
+        const fromURL = getQueryParam('lang');                // 1) URL
+        const saved   = localStorage.getItem('lang');         // 2) localStorage
+        const auto    = (navigator.language||'en').toLowerCase().startsWith('ko') ? 'kr' : 'en'; // 3) browser
+
+        let lang = (fromURL === 'kr' || fromURL === 'en') ? fromURL : (saved || auto);
+        applyLang(lang);
+
+        document.getElementById('y').textContent = new Date().getFullYear();
+        document.querySelectorAll('.lang').forEach(btn=>{
+        btn.addEventListener('click', ()=>applyLang(btn.dataset.lang));
+        });
+    })();
+  </script>
+</body>
+</html>
